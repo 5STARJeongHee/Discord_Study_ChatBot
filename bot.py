@@ -4,11 +4,11 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from events import user_tracking
-import help_commands
+from commands import hi_command, help_commands, default_commands
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
-
+GUILD_ID = os.getenv("GUILD_ID")
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
@@ -17,7 +17,10 @@ intents.presences = True
 class MyBot(commands.Bot):
     async def setup_hook(self):
         # 여기서 슬래시 명령어 등록
+
         await help_commands.setup(self)
+        await hi_command.setup(self)
+        await default_commands.setup(self)
         await self.tree.sync()
         print("✅ 슬래시 명령어 동기화 완료")
 
