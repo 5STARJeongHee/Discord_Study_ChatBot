@@ -4,7 +4,8 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from events import user_tracking
-from commands import hi_command, help_commands, default_commands
+from commands import hi_command, help_commands
+from commands import default_commands
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")

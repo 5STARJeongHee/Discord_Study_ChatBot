@@ -1,10 +1,5 @@
 from discord import app_commands, Interaction
-from ui.register_goal_view import RegisterGoalButtonView
-from ui.edit_goal_view import EditGoalButtonView
-from ui.view_goal_view import ViewGoalButtonView
-from ui.delete_goal_view import DeleteGoalButtonView
-from ui.start_goal_view import StartGoalButtonView
-from ui.stop_goal_view import StopGoalButtonView
+from views.default_command_view import RegisterGoalButtonView, EditGoalButtonView, ViewGoalButtonView, DeleteGoalButtonView, StartGoalButtonView, StopGoalButtonView
 
 
 @app_commands.command(name="register_goal", description="목표 등록")

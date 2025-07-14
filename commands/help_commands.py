@@ -1,5 +1,5 @@
 from discord import app_commands, Interaction
-from ui.help_view import HelpButtonView
+from views.help_view import HelpButtonView
 
 @app_commands.command(name="help", description="사용 가능한 명령어를 보여줍니다.")
 async def help_command(interaction: Interaction):
