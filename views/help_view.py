@@ -1,5 +1,5 @@
 from discord import ui, Interaction, ButtonStyle
-from handlers.goal_handler import handle_register_goal, handle_edit_goal, handle_view_goal, handle_delete_goal, handle_start_goal, handle_stop_goal
+from handlers.goal_handler import handle_register_goal, handle_edit_goal, handle_view_goals, handle_delete_goal, handle_start_goal, handle_stop_goal
 
 class HelpButtonView(ui.View):
     # discord, ui view를 상속하여 
@@ -12,9 +12,9 @@ class HelpButtonView(ui.View):
     async def edit_goal(self, interaction: Interaction, button: ui.Button):
         await handle_edit_goal(interaction, button)
 
-    @ui.button(label="목표 조회", custom_id="view_goal", style=ButtonStyle.gray)
+    @ui.button(label="목표 목록 조회", custom_id="view_goal", style=ButtonStyle.gray)
     async def view_goal(self, interaction: Interaction, button: ui.Button):
-        await handle_view_goal(interaction, button)
+        await handle_view_goals(interaction, button)
 
     @ui.button(label="목표 삭제", custom_id="delete_goal", style=ButtonStyle.red)
     async def delete_goal(self, interaction: Interaction, button: ui.Button):

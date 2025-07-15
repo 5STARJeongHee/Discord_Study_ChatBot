@@ -4,8 +4,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from events import user_tracking
-from commands import hi_command, help_commands
-from commands import default_commands
+from commands import hi_command, help_commands, default_commands, user_commands
 
 load_dotenv()
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -22,6 +21,7 @@ class MyBot(commands.Bot):
         await help_commands.setup(self)
         await hi_command.setup(self)
         await default_commands.setup(self)
+        await user_commands.setup(self)
         await self.tree.sync()
         print("✅ 슬래시 명령어 동기화 완료")
 

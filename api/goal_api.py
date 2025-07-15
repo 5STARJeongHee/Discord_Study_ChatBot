@@ -14,3 +14,10 @@ async def edit_goal_api(goal_id , payload: dict) -> httpx.Response:
     async with httpx.AsyncClient() as client:
         response = await client.put(url, json=payload)
     return response
+
+async def view_goals_api(user_id: str) -> httpx.Response:
+    url = f"{SERVER_URL}/api/goals/list?id={user_id}"
+    print(f"[INFO] 목표 목록 조회 API 호출: {url} for user_id: {user_id}")
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+    return response

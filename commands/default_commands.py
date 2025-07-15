@@ -1,5 +1,5 @@
 from discord import app_commands, Interaction
-from views.default_command_view import RegisterGoalButtonView, EditGoalButtonView, ViewGoalButtonView, DeleteGoalButtonView, StartGoalButtonView, StopGoalButtonView
+from views.default_command_view import RegisterGoalButtonView, EditGoalButtonView, ViewGoalsButtonView, DeleteGoalButtonView, StartGoalButtonView, StopGoalButtonView
 
 
 @app_commands.command(name="register_goal", description="목표 등록")
@@ -17,7 +17,7 @@ async def edit_goal_command(interaction: Interaction):
 @app_commands.command(name="view_goal", description="목표 조회")
 async def view_goal_command(interaction: Interaction):
     print(f"[INFO] /view_goal 명령 실행 by {interaction.user.name}")
-    view = ViewGoalButtonView()
+    view = ViewGoalsButtonView()
     await interaction.response.send_message("🧾 목표 조회 버튼", view=view, ephemeral=True)
 
 @app_commands.command(name="delete_goal", description="목표 삭제")
