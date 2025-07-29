@@ -1,5 +1,5 @@
 from discord import Interaction, ui
-from modals.goal_form import GoalFormModal, GoalEditModal, GoalListView
+from views.goal_form import GoalFormModal, GoalEditModal, GoalListEditView
 from api.goal_api import view_goals_api
 
 async def handle_register_goal(interaction: Interaction, button: ui.Button):

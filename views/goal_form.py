@@ -1,5 +1,5 @@
 # ui/goal_form.py
-from discord import ui, Interaction, ButtonStyle
+from discord import ui, Interaction, ButtonStyle, Embed
 from api.goal_api import register_goal_api, edit_goal_api
 
 class GoalFormModal(ui.Modal):
@@ -92,11 +92,20 @@ class Goal():
             "user": self.user_id
         }
 
-class GoalListView(ui.View):
+class GoalListEditView(ui.View):
     def __init__(self, goals, user_id):
         super().__init__(timeout=None)
         for goal in goals:
             self.add_item(GoalEditButton( goal, user_id))
+
+class GoalListView(ui.View):
+    def __init__(self, goals, user_id):
+        super().__init__(timeout=None)
+        embed = Embed(title="🎯 현재 목표 목록", color=0x00ccff)
+        for goal in goals:
+            progress = f"{goal['current_progress']} / {goal['total_goal']} {goal['unit']}"
+            
+            self.add_item()
 
 class GoalEditButton(ui.Button):
     def __init__(self, goal: Goal, user_id: str):

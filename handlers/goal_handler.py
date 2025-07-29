@@ -1,5 +1,5 @@
 from discord import Interaction, ui
-from modals.goal_form import GoalFormModal, GoalEditModal, GoalListView
+from views.goal_form import GoalFormModal, GoalEditModal, GoalListEditView
 from api.goal_api import view_goals_api
 
 async def handle_register_goal(interaction: Interaction, button: ui.Button):
@@ -33,7 +33,7 @@ async def handle_view_goals( interaction: Interaction, button: ui.Button):
     if response.status_code == 200:
         goals = response.json()
         if goals:
-            view = GoalListView(goals, user_id)
+            view = GoalListEditView(goals, user_id)
             await interaction.response.send_message("수정할 목표를 선택하세요:", view=view, ephemeral=True)
         else:
             await interaction.response.send_message("등록된 목표가 없습니다.", ephemeral=True)
