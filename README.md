@@ -37,3 +37,21 @@ chat/
 │   └── helpers.py
 │
 └── requirements.txt
+
+
+## 봇 실행 진입점
+bot.py
+
+## 봇 interaction 구조
+
+               [bot.py 봇]
+               (봇 메시지 전송 / 일반 커맨드 처리)
+                         │
+                ------------------
+               │                  │
+     [사용자 상호작용]         [버튼 클릭]
+   (슬래시 명령 호출)        (components v2)
+               │                  │
+               ▼                  ▼
+      [bot.py View 핸들러]     →  [FastAPI /interactions 엔드포인트]
+               │                           └ custom_id 기반 응답
