@@ -1,6 +1,6 @@
 from discord import app_commands, Interaction
 from views.default_command_view import RegisterGoalButtonView, EditGoalButtonView, ViewGoalsButtonView, DeleteGoalButtonView, StartGoalButtonView, StopGoalButtonView
-
+import httpx
 
 @app_commands.command(name="register_goal", description="목표 등록")
 async def register_goal_command(interaction: Interaction):
@@ -11,8 +11,24 @@ async def register_goal_command(interaction: Interaction):
 @app_commands.command(name="edit_goal", description="목표 수정")
 async def edit_goal_command(interaction: Interaction):
     print(f"[INFO] /edit_goal 명령 실행 by {interaction.user.name}")
-    view = EditGoalButtonView()
-    await interaction.response.send_message("🧾 목표 수정 버튼", view=view, ephemeral=True)
+
+    # FastAPI로 요청
+    url = "http://localhost:8000/interactions"
+    payload = {
+        "type": 3,
+        "member": {
+            "user": {
+                "id": str(interaction.user.id),
+                "username": interaction.user.name
+            }
+        },
+        "data": {
+            "custom_id": "edit_goal"  # FastAPI가 Discord에게 직접 응답
+        }
+    }
+
+    async with httpx.AsyncClient() as client:
+        await client.post(url, json=payload)
 
 @app_commands.command(name="view_goal", description="목표 조회")
 async def view_goal_command(interaction: Interaction):
