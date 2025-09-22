@@ -125,25 +125,31 @@ async def register_goal_command():
 
 
 async def view_goal_command(payload: dict):
-    """목표 목록 가져오기 (Spring API 연동)"""
-    print("view_goal_command called")
-    user_id = payload.get("member", {}).get("user", {}).get("id")
-    goals = await goal_api.fetch_goals(user_id)
-
-    if not goals:
-        return JSONResponse(content={
-            "type": 4,
-            "data": {"content": "📭 등록된 목표가 없습니다."}
-        })
-
     components = []
-    for g in goals:
-        components.append({
-            "type": 2, "style": 1,
-            "label": g["name"],
-            "custom_id": f"goal_detail:{g['uuid']}"
-        })
+    try:
+      print("""목표 목록 가져오기 (Spring API 연동)""")
+      user_id = payload.get("member", {}).get("user", {}).get("id")
+      
+      goals = await goal_api.fetch_goals(user_id)
 
+      if not goals:
+          return JSONResponse(content={
+              "type": 4,
+              "data": {"content": "📭 등록된 목표가 없습니다."}
+          })
+
+      for g in goals:
+          components.append({
+              "type": 2, "style": 1,
+              "label": g["name"],
+              "custom_id": f"goal_detail:{g['uuid']}"
+          })
+    except Exception as e:
+      print(f"Error fetching goals: {e}")
+      return JSONResponse(content={
+          "type": 4,
+          "data": {"content": "⚠️ 목표 목록을 불러오는 중 오류가 발생했습니다."}
+      })
     return JSONResponse(content={
         "type": 4,
         "data": {
